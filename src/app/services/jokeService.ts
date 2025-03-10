@@ -6,7 +6,7 @@ interface JokeResponse {
   joke: string;
 }
 
-export const fetchRandomJoke = async ({}): Promise<JokeResponse> => {
+export const fetchRandomJoke = async (): Promise<JokeResponse> => {
   try {
     const response = await axios.get("https://api.chucknorris.io/jokes/random");
     return response.data;
