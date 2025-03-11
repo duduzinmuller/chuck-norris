@@ -3,7 +3,7 @@ import { Category } from "./page/index";
 
 export default function Home() {
   return (
-    <div className="h-screen bg-white flex flex-col">
+    <div className="flex h-screen flex-col bg-white">
       <div className="flex items-center justify-center">
         <Image
           src="https://api.chucknorris.io/img/chucknorris_logo_coloured_small@2x.png"
@@ -13,9 +13,9 @@ export default function Home() {
           className="shake-on-hover mt-3 cursor-pointer"
         />
       </div>
-      <div className="flex justify-center items-center h-96">
-        <Category/>
-        </div>
+      <div className="flex h-96 items-center justify-center">
+        <Category />
+      </div>
     </div>
   );
 }
