@@ -28,4 +28,29 @@ describe("Category Component", () => {
 
     await waitFor(() => expect(fetchCategories).toHaveBeenCalledTimes(1));
   });
+
+  test("selects a category and fetches a joke", async () => {
+    (fetchCategories as jest.Mock).mockResolvedValue(["animal", "career"]);
+    (fetchJokeByCategory as jest.Mock).mockResolvedValue({
+      id: "123",
+      value: "Chuck Norris joke",
+    });
+
+    render(<Category />);
+
+    await waitFor(() => expect(fetchCategories).toHaveBeenCalledTimes(1));
+
+    fireEvent.change(screen.getByLabelText("Select one category:"), {
+      target: { value: "animal" },
+    });
+
+    fireEvent.click(screen.getByText("Generate joke by category"));
+
+    await waitFor(() =>
+      expect(fetchJokeByCategory).toHaveBeenCalledWith("animal"),
+    );
+    await waitFor(() =>
+      expect(screen.getByText("Chuck Norris joke")).toBeInTheDocument(),
+    );
+  });
 });
