@@ -20,4 +20,13 @@ describe("JokeCard Component", () => {
       screen.getByText(/Chuck Norris can divide by zero./),
     ).toBeInTheDocument();
   });
+
+  it("should not render anything when the joke is null", () => {
+    // Renderizando o componente com a propriedade `joke` como null
+    render(<JokeCard joke={null} />);
+
+    // Verificando que o componente não renderiza nada
+    const jokeElement = screen.queryByText(/Chuck Norris can divide by zero./);
+    expect(jokeElement).toBeNull();
+  });
 });
