@@ -11,7 +11,7 @@ jest.mock("axios");
 describe("jokeService functions", () => {
   // Test for fetchRandomJoke
   describe("fetchRandomJoke", () => {
-    it("should return a random joke successfully", async () => {
+    it("should return a random joke  successfully", async () => {
       // Mock API response
       const mockResponse = {
         data: {
