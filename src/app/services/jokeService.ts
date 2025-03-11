@@ -40,7 +40,7 @@ export const fetchCategories = async (): Promise<string[]> => {
     return response.data;
   } catch (error) {
     console.error("Erro ao buscar categorias:", error);
-    throw new Error("Não foi possível carregar as categorias.");
+    throw new Error("Could not load categories.");
   }
 };
 
@@ -64,6 +64,6 @@ export const fetchJokeByCategory = async (category: string): Promise<Joke> => {
     };
   } catch (error) {
     console.error("Erro ao buscar piada por categoria:", error);
-    throw new Error("Não foi possível buscar a piada dessa categoria.");
+    throw new Error("Could not fetch the joke for this category.");
   }
 };
