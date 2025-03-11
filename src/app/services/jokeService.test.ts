@@ -5,14 +5,14 @@ import {
 } from "./jokeService";
 import axios from "axios";
 
-// Mock axios
+// Mock do axios para simular as requisições HTTP sem fazer chamadas reais à API
 jest.mock("axios");
 
 describe("jokeService functions", () => {
-  // Test for fetchRandomJoke
+  // Testes para a função fetchRandomJoke
   describe("fetchRandomJoke", () => {
     it("should return a random joke successfully", async () => {
-      // Mock API response
+      // Resposta mockada para simular o retorno da API
       const mockResponse = {
         data: {
           icon_url: "https://example.com/icon.png",
@@ -21,53 +21,68 @@ describe("jokeService functions", () => {
         },
       };
 
-      (axios.get as jest.Mock).mockResolvedValue(mockResponse); // Mocking axios
+      // Simulando a resposta do axios com o valor mockado
+      (axios.get as jest.Mock).mockResolvedValue(mockResponse);
 
+      // Chamando a função que queremos testar
       const joke = await fetchRandomJoke();
-      expect(joke).toEqual(mockResponse.data); // Check if the returned response matches the mock
+
+      // Verificando se a resposta recebida é igual ao valor mockado
+      expect(joke).toEqual(mockResponse.data);
     });
 
     it("should throw an error if the API fails", async () => {
-      // Mock API error
+      // Simulando um erro de rede
       (axios.get as jest.Mock).mockRejectedValue(new Error("Network Error"));
 
       try {
+        // Tentando chamar a função que deve falhar
         await fetchRandomJoke();
       } catch (error) {
-        expect(error).toEqual(new Error("Could not fetch the joke.")); // Check if the error is as expected
+        // Verificando se o erro gerado tem a mensagem correta
+        expect(error).toEqual(new Error("Could not fetch the joke."));
       }
     });
   });
 
-  // Test for fetchCategories
+  // Testes para a função fetchCategories
   describe("fetchCategories", () => {
     it("should return categories successfully", async () => {
-      // Mock API response
+      // Resposta mockada para simular o retorno da API
       const mockResponse = {
         data: ["animal", "celebrity", "dev"],
       };
 
-      (axios.get as jest.Mock).mockResolvedValue(mockResponse); // Mocking axios
+      // Simulando a resposta do axios com o valor mockado
+      (axios.get as jest.Mock).mockResolvedValue(mockResponse);
 
+      // Chamando a função que queremos testar
       const categories = await fetchCategories();
-      expect(categories).toEqual(mockResponse.data); // Check if the returned categories match the mock
+
+      // Verificando se a lista de categorias retornada é igual ao valor mockado
+      expect(categories).toEqual(mockResponse.data);
     });
 
-    it("should throw an error if fetchCategories the API fails", async () => {
-      // Mock API error
+    it("should throw an error if the API fails", async () => {
+      // Simulando um erro de rede
       (axios.get as jest.Mock).mockRejectedValue(new Error("Network Error"));
 
       try {
+        // Tentando chamar a função que deve falhar
         await fetchCategories();
       } catch (error) {
-        expect(error).toEqual(new Error("Could not load categories.")); // Check if the error is as expected
+        // Verificando se o erro gerado tem a mensagem correta
+        expect(error).toEqual(new Error("Could not load categories."));
       }
     });
   });
 
+  // Testes para a função fetchJokeByCategory
   describe("fetchJokeByCategory", () => {
     it("should return a joke for the given category", async () => {
-      const category = "dev";
+      const category = "dev"; // Categoria para a qual estamos solicitando a piada
+
+      // Resposta mockada para simular o retorno da API
       const mockResponse = {
         data: {
           icon_url: "https://example.com/icon.png",
@@ -76,21 +91,30 @@ describe("jokeService functions", () => {
         },
       };
 
-      (axios.get as jest.Mock).mockResolvedValue(mockResponse); // Mocking axios
+      // Simulando a resposta do axios com o valor mockado
+      (axios.get as jest.Mock).mockResolvedValue(mockResponse);
 
+      // Chamando a função que queremos testar passando a categoria
       const joke = await fetchJokeByCategory(category);
-      expect(joke).toEqual(mockResponse.data); // Check if the returned joke matches the mock
+
+      // Verificando se a piada retornada corresponde à resposta mockada
+      expect(joke).toEqual(mockResponse.data);
     });
+
     it("should throw an error if fetchJokeByCategory the API fails", async () => {
-      const category = "dev";
+      const category = "dev"; // Categoria para a qual estamos solicitando a piada
+
+      // Simulando um erro de rede
       (axios.get as jest.Mock).mockRejectedValue(new Error("Network Error"));
 
       try {
+        // Tentando chamar a função que deve falhar
         await fetchJokeByCategory(category);
       } catch (error) {
+        // Verificando se o erro gerado tem a mensagem correta
         expect(error).toEqual(
           new Error("Could not fetch the joke for this category."),
-        ); // Check if the error is as expected
+        );
       }
     });
   });
