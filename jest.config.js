@@ -1,8 +1,9 @@
 module.exports = {
   transform: {
-    "^.+\\.(ts|tsx)$": "ts-jest", // Aplica ts-jest a arquivos .ts e .tsx
+    "^.+\\.(ts|tsx)$": "ts-jest", // Transforma arquivos .ts e .tsx
   },
   testEnvironment: "jsdom", // Usando jsdom para testes de DOM
+  setupFilesAfterEnv: ["<rootDir>/src/setupTests.ts"], // Certifique-se de que o arquivo de setup está correto
   moduleNameMapper: {
     "\\.css$": "jest-transform-stub", // Ignora arquivos .css
     "@/(.*)": "<rootDir>/src/$1", // Mapeia o alias @ para src/
