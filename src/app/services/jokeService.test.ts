@@ -64,4 +64,22 @@ describe("jokeService functions", () => {
       }
     });
   });
+
+  describe("fetchJokeByCategory", () => {
+    it("should return a joke for the given category", async () => {
+      const category = "dev";
+      const mockResponse = {
+        data: {
+          icon_url: "https://example.com/icon.png",
+          id: "456",
+          value: "Chuck Norris can debug 0 errors in 0 seconds.",
+        },
+      };
+
+      (axios.get as jest.Mock).mockResolvedValue(mockResponse); // Mocking axios
+
+      const joke = await fetchJokeByCategory(category);
+      expect(joke).toEqual(mockResponse.data); // Check if the returned joke matches the mock
+    });
+  });
 });
