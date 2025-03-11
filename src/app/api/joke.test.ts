@@ -41,4 +41,14 @@ describe("API Handler - /api/joke", () => {
 
     expect(res.statusCode).toBe(500);
   });
+
+  it("Should return error 405 for method not allowed", async () => {
+    const { req, res } = createMocks({
+      method: "POST", // Método não permitido
+    });
+
+    await handler(req, res);
+
+    expect(res.statusCode).toBe(405);
+  });
 });
