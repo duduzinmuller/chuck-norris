@@ -19,5 +19,16 @@ describe("jokeService functions", () => {
       const categories = await fetchCategories();
       expect(categories).toEqual(mockResponse.data);
     });
+
+    it("should throw an error if the API fails", async () => {
+      // Mock API error
+      (axios.get as jest.Mock).mockRejectedValue(new Error("Network Error"));
+
+      try {
+        await fetchRandomJoke();
+      } catch (error) {
+        expect(error).toEqual(new Error("Could not fetch the joke.")); // Esperando a mensagem de erro em inglês
+      }
+    });
   });
 });
