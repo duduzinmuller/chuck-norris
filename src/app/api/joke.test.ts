@@ -27,4 +27,18 @@ describe("API Handler - /api/joke", () => {
     // Verifique se o status foi 200 e se o corpo da resposta é correto
     expect(res.statusCode).toBe(200);
   });
+
+  it("Should return error 500 when there's a failure fetching the joke", async () => {
+    (fetchRandomJoke as jest.Mock).mockRejectedValue(
+      new Error("Error fetching joke"),
+    );
+
+    const { req, res } = createMocks({
+      method: "GET",
+    });
+
+    await handler(req, res);
+
+    expect(res.statusCode).toBe(500);
+  });
 });
