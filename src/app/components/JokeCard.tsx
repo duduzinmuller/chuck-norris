@@ -1,47 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { fetchRandomJoke } from "../services/jokeService";
+import React from "react";
+import { Joke } from "../types/type";
 
-interface Joke {
-  icon_url: string;
-  id: string;
-  joke: string;
+interface JokeCardProps {
+  joke: Joke | null;
 }
 
-const JokeCard: React.FC = () => {
-  const [joke, setJoke] = useState<Joke | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
-
-  useEffect(() => {
-    const getJoke = async () => {
-      setLoading(true);
-      try {
-        const fetchedJoke = await fetchRandomJoke();
-        setJoke({
-          icon_url: fetchedJoke.icon_url,
-          id: fetchedJoke.id,
-          joke: fetchedJoke.joke,
-        });
-      } catch (error) {
-        console.error("Erro ao buscar piada:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    getJoke();
-  }, []);
-
-  if (loading) return <p>Carregando piada...</p>;
+const JokeCard: React.FC<JokeCardProps> = ({ joke }) => {
+  if (!joke) {
+    return null; 
+  }
 
   return (
-    <div>
-      {joke ? (
-        <div>
-          <p>{joke.joke}</p>
-        </div>
-      ) : (
-        <p>Não foi possível carregar a piada.</p>
-      )}
+    <div className="p-4 mt-4 border rounded-lg shadow-lg bg-white max-w-md mx-auto">
+      <p className="text-xl font-semibold">{joke.value}</p>
     </div>
   );
 };
