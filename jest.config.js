@@ -1,12 +1,17 @@
 module.exports = {
+  testEnvironment: "jsdom",
   transform: {
-    "^.+\\.(tsx|ts)$": "babel-jest", // Usando babel-jest para arquivos .ts e .tsx
+    "^.+\\.(ts|tsx)$": "ts-jest",
   },
-  testEnvironment: "jsdom", // Usando jsdom para testes de DOM
-  setupFilesAfterEnv: ["<rootDir>/src/setupTests.ts"], // Certifique-se de que o arquivo de setup está correto
+  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
+  setupFilesAfterEnv: ["@testing-library/jest-dom/jest-globals"],
+  transformIgnorePatterns: ["/node_modules/"],
   moduleNameMapper: {
-    "\\.css$": "jest-transform-stub", // Ignora arquivos .css
-    "@/(.*)": "<rootDir>/src/$1", // Mapeia o alias @ para src/
+    "^@/(.*)$": "<rootDir>/src/$1", // Garantir que o Jest resolva os caminhos corretamente
   },
-  testPathIgnorePatterns: ["/node_modules/", "/.next/"], // Ignora node_modules e .next
+  globals: {
+    "ts-jest": {
+      tsconfig: "<rootDir>/tsconfig.json", // Especificar o tsconfig aqui
+    },
+  },
 };
