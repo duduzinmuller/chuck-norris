@@ -22,7 +22,7 @@ export const fetchRandomJoke = async (): Promise<JokeResponse> => {
     return response.data;
   } catch (error) {
     console.error("Erro ao buscar piada:", error);
-    throw new Error("Não foi possível buscar a piada.");
+    throw new Error("Could not fetch the joke.");
   }
 };
 
@@ -34,7 +34,9 @@ export const fetchRandomJoke = async (): Promise<JokeResponse> => {
  */
 export const fetchCategories = async (): Promise<string[]> => {
   try {
-    const response = await axios.get("https://api.chucknorris.io/jokes/categories");
+    const response = await axios.get(
+      "https://api.chucknorris.io/jokes/categories",
+    );
     return response.data;
   } catch (error) {
     console.error("Erro ao buscar categorias:", error);
@@ -52,7 +54,7 @@ export const fetchCategories = async (): Promise<string[]> => {
 export const fetchJokeByCategory = async (category: string): Promise<Joke> => {
   try {
     const response = await axios.get(
-      `https://api.chucknorris.io/jokes/random?category=${category}`
+      `https://api.chucknorris.io/jokes/random?category=${category}`,
     );
 
     return {
