@@ -11,7 +11,7 @@ jest.mock("axios");
 describe("jokeService functions", () => {
   // Test for fetchRandomJoke
   describe("fetchRandomJoke", () => {
-    it("should return a random joke  successfully", async () => {
+    it("should return a random joke successfully", async () => {
       // Mock API response
       const mockResponse = {
         data: {
@@ -51,6 +51,17 @@ describe("jokeService functions", () => {
 
       const categories = await fetchCategories();
       expect(categories).toEqual(mockResponse.data); // Check if the returned categories match the mock
+    });
+
+    it("should throw an error if fetchCategories the API fails", async () => {
+      // Mock API error
+      (axios.get as jest.Mock).mockRejectedValue(new Error("Network Error"));
+
+      try {
+        await fetchCategories();
+      } catch (error) {
+        expect(error).toEqual(new Error("Could not load categories.")); // Check if the error is as expected
+      }
     });
   });
 });
