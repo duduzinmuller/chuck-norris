@@ -81,5 +81,17 @@ describe("jokeService functions", () => {
       const joke = await fetchJokeByCategory(category);
       expect(joke).toEqual(mockResponse.data); // Check if the returned joke matches the mock
     });
+    it("should throw an error if fetchJokeByCategory the API fails", async () => {
+      const category = "dev";
+      (axios.get as jest.Mock).mockRejectedValue(new Error("Network Error"));
+
+      try {
+        await fetchJokeByCategory(category);
+      } catch (error) {
+        expect(error).toEqual(
+          new Error("Could not fetch the joke for this category."),
+        ); // Check if the error is as expected
+      }
+    });
   });
 });
