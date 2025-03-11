@@ -1,9 +1,13 @@
-'use client'
+"use client";
 
 import { useState, useEffect } from "react";
 import JokeCard from "../components/JokeCard";
-import { fetchCategories, fetchJokeByCategory, fetchRandomJoke } from "../services/jokeService";
-import { Joke } from "../types/type"; 
+import {
+  fetchCategories,
+  fetchJokeByCategory,
+  fetchRandomJoke,
+} from "../services/jokeService";
+import { Joke } from "../types/type";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 
@@ -82,7 +86,7 @@ export const Category = () => {
   };
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen">
+    <main className="flex min-h-screen flex-col items-center justify-center">
       <header>
         <h1 className="text-3xl font-bold">Chuck Norris's Jokes</h1>
       </header>
@@ -96,7 +100,7 @@ export const Category = () => {
           id="category"
           value={selectedCategory || ""}
           onChange={(e) => setSelectedCategory(e.target.value)}
-          className="p-2 rounded-md border-2 ml-8"
+          className="ml-8 rounded-md border-2 p-2"
         >
           <option value="">Select</option>
           {categories.map((category, index) => (
@@ -117,10 +121,10 @@ export const Category = () => {
       </section>
 
       {/* Seção de botões para gerar piadas */}
-      <section className="flex flex-row gap-5 mt-3">
+      <section className="mt-3 flex flex-row gap-5">
         <Button
           onClick={getJokeByCategory}
-          className="bg-blue-500 text-white py-2 px-4 rounded-md"
+          className="cursor-pointer rounded-md bg-blue-500 px-4 py-2 text-white"
           disabled={loadingCategory || !selectedCategory}
         >
           {loadingCategory ? "Loading..." : "Generate joke by category"}
@@ -128,7 +132,7 @@ export const Category = () => {
 
         <Button
           onClick={getRandomJoke}
-          className="bg-green-500 text-white py-2 px-4 rounded-md"
+          className="cursor-pointer rounded-md bg-green-500 px-4 py-2 text-white"
           disabled={loadingRandom}
         >
           {loadingRandom ? "Loading..." : "Generate random joke"}
